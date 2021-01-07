@@ -12,26 +12,25 @@ var carry = 0
 
 func main() {
 
+	// node1 := ListNode{
+	// 	Val: 9,
+	// 	Next: &ListNode{
+	// 		Val: 9,
+	// 		Next: &ListNode{
+	// 			Val:  9,
+	// 			Next: nil,
+	// 		},
+	// 	},
+	// }
+
 	node1 := ListNode{
-		Val: 2,
-		Next: &ListNode{
-			Val: 4,
-			Next: &ListNode{
-				Val:  3,
-				Next: nil,
-			},
-		},
+		Val: 0,
+		Next: nil,
 	}
 
 	node2 := ListNode{
-		Val: 5,
-		Next: &ListNode{
-			Val: 6,
-			Next: &ListNode{
-				Val:  4,
-				Next: nil,
-			},
-		},
+		Val: 1,
+		Next: nil,
 	}
 	ans := addTwoNumbers(&node1, &node2)
 	var array []int
@@ -45,28 +44,34 @@ func main() {
 			hasNext = false
 		}
 	}
-	fmt.Printf("%v", reverse(array))
+	fmt.Printf("%v", array)
 }
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
-	tmpVal := l1.Val + l2.Val + carry
-	if tmpVal >= 10 {
-		tmpVal -= 10
-		carry = 1
-	} else {
-		carry = 0
-	}
-	ans := new(ListNode)
-	ans.Val = tmpVal
-
-	if (l1.Next != nil) || (l2.Next != nil) || carry != 0 {
+	if l1 != nil && l2 != nil {
+		ans := new(ListNode)
+		ans.Val = checkCarry(l1.Val + l2.Val + carry)
 		ans.Next = addTwoNumbers(l1.Next, l2.Next)
-	} else {
+		return ans
+	} else if l1 != nil {
+		ans := new(ListNode)
+		ans.Val = checkCarry(l1.Val + carry)
+		ans.Next = addTwoNumbers(l1.Next, nil)
+		return ans
+	} else if l2 != nil {
+		ans := new(ListNode)
+		ans.Val = checkCarry(l2.Val + carry)
+		ans.Next = addTwoNumbers(nil, l2.Next)
+		return ans
+	} else if carry != 0 {
+		ans := new(ListNode)
+		ans.Val = carry
 		ans.Next = nil
+		return ans
+	} else {
+		return nil
 	}
-
-	return ans
 }
 
 func reverse(arr []int) []int {
@@ -76,4 +81,14 @@ func reverse(arr []int) []int {
 		reverseArr = append(reverseArr, arr[i])
 	}
 	return reverseArr
+}
+
+func checkCarry(num int) int {
+	if num >= 10 {
+		carry = 1
+		return num - 10
+	} else {
+		carry = 0
+		return num
+	}
 }
