@@ -9,48 +9,58 @@ import (
 
 //Node 節點
 type Node struct {
-	C    string
+	C    byte
 	Next *Node
 }
 
-var tmp = make(map[string]*Node)
+var tmp = make(map[byte]*Node)
 
 func lengthOfLongestSubstring(s string) int {
 	max := 0
-	tmp = make(map[string]*Node)
+	tmp = make(map[byte]*Node)
 	var left *Node
-	var set *Node
 	var right *Node
+
 	for idx, c := range s {
 		if idx == 0 {
 			left = &Node{
-				C: string(c),
+				C: byte(c),
 			}
-			set = left
 			right = left
 		} else {
-			set.Next = &Node{
-				C: string(c),
+			right.Next = &Node{
+				C: byte(c),
 			}
-			right = set
-			set = set.Next
 		}
 
-		if duplicate, ok := tmp[string(c)]; ok {
+		if duplicate, ok := tmp[byte(c)]; ok {
 			//重複
 			if count := countNode(left, right); count > max {
 				max = count
 			}
 			deleteTmp(left, duplicate)
 			left = duplicate.Next
-			tmp[string(c)] = set
+			tmp[byte(c)] = right.Next
 		} else {
-			tmp[string(c)] = set
-			if idx+1 == strings.Count(s, "")-1 {
-				if count := countNode(left, set); count > max {
-					max = count
+			if idx == 0 {
+				tmp[byte(c)] = right
+				if idx+1 == strings.Count(s, "")-1 {
+					if count := countNode(left, right); count > max {
+						max = count
+					}
+				}
+			} else {
+				tmp[byte(c)] = right.Next
+				if idx+1 == strings.Count(s, "")-1 {
+					if count := countNode(left, right.Next); count > max {
+						max = count
+					}
 				}
 			}
+
+		}
+		if right.Next != nil {
+			right = right.Next
 		}
 	}
 
