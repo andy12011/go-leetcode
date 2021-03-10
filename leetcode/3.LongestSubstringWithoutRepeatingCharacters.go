@@ -1,9 +1,5 @@
 package leetcode
 
-import (
-	"strings"
-)
-
 // leetcode #3 Longest Substring Without Repeating Characters
 // created by 2021-03-09 by Andy
 
@@ -13,79 +9,30 @@ type Node struct {
 	Next *Node
 }
 
-var tmp = make(map[byte]*Node)
-
 func lengthOfLongestSubstring(s string) int {
-	max := 0
-	tmp = make(map[byte]*Node)
-	var left *Node
-	var right *Node
-
-	for idx, c := range s {
-		if idx == 0 {
-			left = &Node{
-				C: byte(c),
-			}
-			right = left
-		} else {
-			right.Next = &Node{
-				C: byte(c),
-			}
+	n := len(s)      //字串長度
+	m := [256]byte{} //8位元 2^8
+	left, right := 0, 0
+	counter := 0
+	ans := 0
+	for right < n {
+		idx := int(s[right])
+		if m[idx] == 0 {
+			counter++
 		}
+		m[idx]++
+		right++
 
-		if duplicate, ok := tmp[byte(c)]; ok {
-			//重複
-			if count := countNode(left, right); count > max {
-				max = count
+		for counter < (right - left) { //代表重複
+			m[int(s[left])]--
+			if m[int(s[left])] == 0 {
+				counter--
 			}
-			deleteTmp(left, duplicate)
-			left = duplicate.Next
-			tmp[byte(c)] = right.Next
-		} else {
-			if idx == 0 {
-				tmp[byte(c)] = right
-				if idx+1 == strings.Count(s, "")-1 {
-					if count := countNode(left, right); count > max {
-						max = count
-					}
-				}
-			} else {
-				tmp[byte(c)] = right.Next
-				if idx+1 == strings.Count(s, "")-1 {
-					if count := countNode(left, right.Next); count > max {
-						max = count
-					}
-				}
-			}
-
+			left++
 		}
-		if right.Next != nil {
-			right = right.Next
+		if ans < (right - left) {
+			ans = right - left
 		}
 	}
-
-	return max
-}
-
-func countNode(left *Node, right *Node) int {
-	count := 0
-	for true {
-		count++
-		if left.C == right.C {
-			break
-		}
-		left = left.Next
-	}
-
-	return count
-}
-
-func deleteTmp(left *Node, right *Node) {
-	for true {
-		delete(tmp, left.C)
-		if left.C == right.C {
-			break
-		}
-		left = left.Next
-	}
+	return ans
 }
