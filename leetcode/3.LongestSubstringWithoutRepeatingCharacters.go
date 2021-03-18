@@ -1,7 +1,6 @@
 package leetcode
 
-// leetcode #3 Longest Substring Without Repeating Characters
-// created by 2021-03-09 by Andy
+//From https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
 //Node 節點
 type Node struct {

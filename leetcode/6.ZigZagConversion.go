@@ -2,6 +2,7 @@ package leetcode
 
 import "bytes"
 
+//From https://leetcode.com/problems/zigzag-conversion/
 func convert(s string, numRows int) string {
 	var butter bytes.Buffer
 	length := len(s)

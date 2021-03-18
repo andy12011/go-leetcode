@@ -1,6 +1,6 @@
 package leetcode
 
-
+//From https://leetcode.com/problems/longest-palindromic-substring/
 func longestPalindrome(s string) string {
 	count := len(s)
 	maxIndex := count - 1

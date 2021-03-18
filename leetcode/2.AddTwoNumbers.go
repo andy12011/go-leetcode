@@ -2,6 +2,7 @@ package leetcode
 
 import "fmt"
 
+//From https://leetcode.com/problems/add-two-numbers/
 //ListNode Node結構
 type ListNode struct {
 	Val  int
