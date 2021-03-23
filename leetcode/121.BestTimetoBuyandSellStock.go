@@ -1,6 +1,7 @@
 package leetcode
 
-//min紀錄value 跟 idx 結果差不多
+// 題目
+// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 func maxProfit(prices []int) int {
 	ans, midIdx := 0, 0
 
