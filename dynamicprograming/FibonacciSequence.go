@@ -14,6 +14,9 @@ func fibonacciSequence(len int) int {
 }
 
 func recursiveCal(n int) int {
+	// another solution is define default in dp map
+	// dp[0] = 1
+	// dp[1] = 1
 	if n <= 1 {
 		if _, ok := dp[n]; !ok {
 			dp[n] = 1
