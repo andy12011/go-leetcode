@@ -33,5 +33,5 @@ func Test_fibonacciSequence(t *testing.T) {
 		})
 	}
 
-	fmt.Println(dp)
+	fmt.Println(fibonacciDP)
 }
