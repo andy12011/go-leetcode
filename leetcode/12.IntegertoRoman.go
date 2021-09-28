@@ -2,7 +2,7 @@ package leetcode
 
 var numberSymbolMap = [][]byte{
 	{77},     // M
-	{67, 77}, //CM
+	{67, 77}, // CM
 	{68},     // D
 	{67, 68}, // CD
 	{67},     // C
