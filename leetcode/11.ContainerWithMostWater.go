@@ -11,7 +11,7 @@ func maxArea(height []int) int {
 		return 0
 	}
 	var tmp int
-	for true {
+	for {
 		if lx == rx {
 			break
 		}

@@ -1,7 +1,5 @@
 package leetcode
 
-import "fmt"
-
 // definit in 12.IntegertoRoman
 // var numberSymbolMap = [][]byte{
 // 	{77},     // M
@@ -59,7 +57,7 @@ func romanToInt(s string) int {
 			compareIdx++
 			compareBytes = numberSymbolMap[compareIdx]
 		}
-		
+
 		if inputFlag == inputLength {
 			break
 		}
